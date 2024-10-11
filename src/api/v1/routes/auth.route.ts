@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/auth.middleware";
 
 const router = Router();
 
-// POST to sign up a new user
+// [POST] /users/signup
 router.post("/signup", AuthController.signup);
 
 // POST to log in an existing user

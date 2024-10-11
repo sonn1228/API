@@ -5,21 +5,21 @@ import authMiddleware from "../middleware/auth.middleware";
 const router = Router();
 
 // GET all users
-router.get("/users", authMiddleware.requiredAuth, UserController.getAllUsers);
+router.get("/", authMiddleware.requiredAuth, UserController.getAllUsers);
 
 // GET a single user by ID
-router.get("/users/:id", UserController.getUserById);
+router.get("/:id", UserController.getUserById);
 
 // POST to create a new user
-router.post("/users", UserController.createUser);
+router.post("/", UserController.createUser);
 
 // PUT to update a user by ID
-router.put("/users/:id", UserController.updateUser);
+router.put("/:id", UserController.updateUser);
 
 // PATCH to update a user by ID
-router.patch("/users/:id", UserController.updateUser);
+router.patch("/:id", UserController.updateUser);
 
 // DELETE to remove a user by ID
-router.delete("/users/:id", UserController.deleteUser);
+router.delete("/:id", UserController.deleteUser);
 
 export default router;

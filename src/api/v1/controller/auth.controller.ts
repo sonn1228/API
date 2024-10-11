@@ -43,14 +43,12 @@ class AuthController {
     try {
       const { email, password: hash } = req.body;
 
-      // Find user by email
       const user = await UserModel.findOne({ email });
       if (!user) {
         res.status(400).json({ message: "user not found" });
         return;
       }
 
-      // Compare password
       if (!bcrypt.compareSync(hash, user.password)) {
         res.status(400).json({ message: "invalid password" });
         return;
@@ -75,7 +73,7 @@ class AuthController {
     req: Request,
     res: Response
   ): Promise<void> => {
-    const user = (req as any).user; // Lấy thông tin user từ request
+    const user = (req as any).user; 
     const { accessToken, exp } = user;
 
     if (!accessToken) {

@@ -1,29 +1,37 @@
-// import lib
+// Import libraries
 import express, { Express } from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 
-// import file
+// Import files
 import { routesV1 } from "./api/v1/routes/index.route";
 import connectDB from "./database/connect";
 
-// config env
+// Configure environment variables
 dotenv.config();
 
-// app
+// Create Express app
 const app: Express = express();
+
+// Set port from environment variable or default to 3000
 const port = process.env.PORT || 3000;
 
+// Parse incoming JSON and URL-encoded data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Connect to the database
 connectDB();
+
+// Set up routes for API version 1
 routesV1(app);
 
-app.get("/", (req, res) => {
+// Simple route for the root URL
+app.get("/", (_, res) => {
   res.send("Hello, World abc!");
 });
 
+// Start server
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

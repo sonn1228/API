@@ -6,12 +6,6 @@ openssl rand -hex 32
 cookie-based/ session-based: Server side rendering
 token-based / : API
 
-client
-1: [GET] /login (email, password)
-
-server
-1:
-
 header{
 
 <!-- thuat toan ma hoa -->
@@ -31,7 +25,7 @@ payload: {
 signature {
 base64encode(header) + "."
 base64decode(payload),
-masobimat(secret_key- ma nay nam ben phia server)
+secret_key(secret_key- ma nay nam ben phia server)
 }
 
 1. access token
