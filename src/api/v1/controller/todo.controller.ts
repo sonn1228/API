@@ -1,13 +1,33 @@
 import { Request, RequestHandler, Response } from "express";
 import { TodoModel } from "../../../model/todo.model";
-import { successResponse } from "../../../helper/response";
+import { successResponse, errorResponse } from "../../../helper/response";
 
 class TodoController {
   getTodos: RequestHandler = async (req: Request, res: Response) => {
-    const todoList = await TodoModel.find();
-    successResponse(res, 200, "success", {
-      todoList,
-    });
+    try {
+      const todoList = await TodoModel.find();
+      successResponse(res, 200, "success", { todoList });
+    } catch (error) {
+      errorResponse(res, 500, "Internal server error");
+    }
+  };
+
+  deleteTodoById: RequestHandler = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const deletedTodo = await TodoModel.findByIdAndDelete(id);
+
+      if (deletedTodo) {
+        successResponse(res, 200, "Todo deleted successfully", { deletedTodo });
+      } else {
+        errorResponse(res, 404, "Todo not found");
+      }
+    } catch (error) {
+      errorResponse(res, 500, "Internal server error");
+    }
+  };
+  test: RequestHandler = async (req: Request, res: Response) => {
+    res.send("<h1>Hello world</h1>");
   };
 }
 
