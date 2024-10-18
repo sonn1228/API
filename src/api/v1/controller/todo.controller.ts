@@ -16,7 +16,7 @@ class TodoController {
     try {
       const id = req.params.id;
       const deletedTodo = await TodoModel.findByIdAndDelete(id);
-
+      console.log("deletedTodo: ", deletedTodo);
       if (deletedTodo) {
         successResponse(res, 200, "Todo deleted successfully", { deletedTodo });
       } else {
@@ -28,6 +28,18 @@ class TodoController {
   };
   test: RequestHandler = async (req: Request, res: Response) => {
     res.send("<h1>Hello world</h1>");
+  };
+  createTodo: RequestHandler = async (req: Request, res: Response) => {
+    try {
+      const todo = req.body;
+      const newTodo = new TodoModel({
+        ...todo,
+      });
+      await newTodo.save();
+      successResponse(res, 200, "Todo created successfully", todo);
+    } catch (error) {
+      errorResponse(res, 400, "Todos created Error");
+    }
   };
 }
 

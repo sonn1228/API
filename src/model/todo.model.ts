@@ -13,12 +13,7 @@ export interface Todo extends Document {
 const TodoSchema = new Schema<Todo>({
   userId: {
     type: Number,
-    required: true,
-  },
-  id: {
-    type: Number,
-    required: true,
-    unique: true, // Đảm bảo id là duy nhất
+    required: false,
   },
   title: {
     type: String,
