@@ -36,9 +36,11 @@ class TodoController {
         ...todo,
       });
       await newTodo.save();
-      successResponse(res, 200, "Todo created successfully", todo);
+      successResponse(res, 200, "Todo created successfully", newTodo);
     } catch (error) {
-      errorResponse(res, 400, "Todos created Error");
+      res.json({
+        error,
+      });
     }
   };
 }
