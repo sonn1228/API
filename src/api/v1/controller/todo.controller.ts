@@ -15,7 +15,9 @@ class TodoController {
   deleteTodoById: RequestHandler = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
-      const deletedTodo = await TodoModel.findByIdAndDelete(id);
+      const deletedTodo = await TodoModel.deleteOne({
+        _id: id,
+      });
       console.log("deletedTodo: ", deletedTodo);
       if (deletedTodo) {
         successResponse(res, 200, "Todo deleted successfully", { deletedTodo });
